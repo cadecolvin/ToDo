@@ -1,4 +1,5 @@
 import datetime
+import os
 import pickle
 
 
@@ -35,8 +36,13 @@ class ItemManager:
 
 
     def load(self):
-        with open(self.file_path, 'r') as f:
-            try:
+        try:
+            with open(self.file_path, 'r') as f:
                 self.items = pickle.load(f)
-            except:
-                pass
+        except:
+            self.initialize()
+
+    
+    def initialize(self):
+        self.items = list()
+        open(self.file_path, 'w').close()
