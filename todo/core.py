@@ -25,9 +25,9 @@ class Item():
         if not verbose:
             return title
 
-        wrapper = TextWrapper(width=width, tabsize=4, 
-                expand_tabs=True, initial_indent='\t', 
-                subsequent_indent='\t')
+        wrapper = TextWrapper(width=width, expand_tabs=True)
+        wrapper.initial_indent = '    '
+        wrapper.subsequent_indent = '    '
 
         wrapped_desc = wrapper.fill(self.description)
 

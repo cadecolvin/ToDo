@@ -5,7 +5,7 @@ from todo import core
 
 
 default_file = r'C:\Users\ccolvin\.todo'
-term_width = os.get_terminal_size()[0] - 8
+term_width = os.get_terminal_size()[0]
 
 
 def add(args):
