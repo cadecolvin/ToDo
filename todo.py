@@ -16,6 +16,12 @@ def add(args):
         mgr.items.append(item)
 
 
+
+def done(args):
+    with(core.ItemManager(default_file)) as mgr:
+        mgr.complete(args.id)
+
+
 def init(args):
     with(core.ItemManager(default_file)) as mgr:
         mgr.initialize()
@@ -24,7 +30,8 @@ def init(args):
 def view(args):
     with(core.ItemManager(default_file)) as mgr:
         for idx, item in enumerate(mgr.items):
-            print(item.format(width = term_width, verbose = args.v))
+            if item.completed == args.c:
+                print(item.format(idx, term_width, args.v))
 
 
 parser = argparse.ArgumentParser(description='Keeps track of ToDo items')
@@ -52,9 +59,18 @@ parser_add.add_argument('description', help=desc_help)
 parser_add.set_defaults(func=add)
 
 
-# Build out the initialzie options
+# Build out the done options
+id_help = 'The id of the item to mark as complete'
+
+parser_done = subparsers.add_parser('done', help='Marks an item as complete')
+parser_done.add_argument('id', type=int, help=id_help)
+parser_done.set_defaults(func=done)
+
+
+# Build out the initialize options
 parser_init = subparsers.add_parser('init', help='Initializes a new ToDo list')
 parser_init.set_defaults(func=init)
+
 
 args = parser.parse_args()
 args.func(args)

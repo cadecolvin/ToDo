@@ -19,8 +19,11 @@ class Item():
         return self.name
 
 
-    def format(self, width = 70, verbose = False):
-        title = f'{self.create_date} -- {self.name}'
+    def format(self, id, width, verbose):
+        if self.completed:
+            title = f'{id}|{self.complete_date} -- {self.name}'
+        else:
+            title = f'{id}|{self.create_date} -- {self.name}'
 
         if not verbose:
             return title
@@ -33,7 +36,6 @@ class Item():
 
 
         return '\n'.join([title, wrapped_desc])
-
 
 
 class ItemManager:
@@ -68,3 +70,8 @@ class ItemManager:
     def initialize(self):
         self.items = list()
         open(self.file_path, 'w').close()
+
+
+    def complete(self, id):
+        self.items[id].complete_date = datetime.date.today()
+        self.items[id].completed = True
