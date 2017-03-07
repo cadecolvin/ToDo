@@ -1,6 +1,7 @@
 import datetime
 import os
 import pickle
+from textwrap import TextWrapper
 
 
 class Item():
@@ -9,9 +10,30 @@ class Item():
         print('making a new item')
         self.name = name
         self.description = description
-        self.create_date = datetime.date
+        self.create_date = datetime.date.today()
         self.completed = False
         self.notes = list()
+
+
+    def __str__(self):
+        return self.name
+
+
+    def format(self, width = 70, verbose = False):
+        title = f'{self.create_date} -- {self.name}'
+
+        if not verbose:
+            return title
+
+        wrapper = TextWrapper(width=width, tabsize=4, 
+                expand_tabs=True, initial_indent='\t', 
+                subsequent_indent='\t')
+
+        wrapped_desc = wrapper.fill(self.description)
+
+
+        return '\n'.join([title, wrapped_desc])
+
 
 
 class ItemManager:
@@ -31,13 +53,13 @@ class ItemManager:
 
 
     def save(self):
-        with open(self.file_path, 'w') as f:
+        with open(self.file_path, 'wb') as f:
             pickle.dump(self.items, f)
 
 
     def load(self):
         try:
-            with open(self.file_path, 'r') as f:
+            with open(self.file_path, 'rb') as f:
                 self.items = pickle.load(f)
         except:
             self.initialize()
