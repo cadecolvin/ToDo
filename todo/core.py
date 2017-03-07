@@ -29,13 +29,17 @@ class Item():
             return title
 
         wrapper = TextWrapper(width=width, expand_tabs=True)
-        wrapper.initial_indent = '    '
+        wrapper.initial_indent = '   -'
         wrapper.subsequent_indent = '    '
 
         wrapped_desc = wrapper.fill(self.description)
 
+        wrapped_notes = list()
+        for note in self.notes:
+            wrapped_notes.append(wrapper.fill(note))
+        wrapped_notes = '\n'.join(wrapped_notes)
 
-        return '\n'.join([title, wrapped_desc])
+        return '\n'.join([title, wrapped_desc, wrapped_notes])
 
 
 class ItemManager:
@@ -64,7 +68,7 @@ class ItemManager:
             with open(self.file_path, 'rb') as f:
                 self.items = pickle.load(f)
         except:
-            self.initialize()
+            print('Unknown error. Please run \'todo -h\' for help')
 
     
     def initialize(self):

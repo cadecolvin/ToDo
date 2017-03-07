@@ -22,6 +22,11 @@ def done(args):
         mgr.complete(args.id)
 
 
+def note(args):
+    with(core.ItemManager(default_file)) as mgr:
+        mgr.items[args.id].notes.append(args.text)
+
+
 def init(args):
     with(core.ItemManager(default_file)) as mgr:
         mgr.initialize()
@@ -65,6 +70,16 @@ id_help = 'The id of the item to mark as complete'
 parser_done = subparsers.add_parser('done', help='Marks an item as complete')
 parser_done.add_argument('id', type=int, help=id_help)
 parser_done.set_defaults(func=done)
+
+
+# Build out the note options
+id_help = 'The id of the item to add the note to'
+text_help = 'The note to add to the item'
+
+parser_note = subparsers.add_parser('note', help='Adds a note to an item')
+parser_note.add_argument('id', type=int, help=id_help)
+parser_note.add_argument('text', help=text_help)
+parser_note.set_defaults(func=note)
 
 
 # Build out the initialize options
