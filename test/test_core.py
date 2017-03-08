@@ -4,6 +4,7 @@ import unittest
 
 from todo import core
 
+
 class TestItem(unittest.TestCase):
 
     def setUp(self):
@@ -12,10 +13,8 @@ class TestItem(unittest.TestCase):
         self.today = datetime.date.today()
         self.item = core.Item(self.name, self.desc)
 
-
     def test_create_date(self):
         self.assertEqual(self.item.create_date, self.today)
-
 
     def test_format(self):
         id = '0'

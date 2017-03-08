@@ -1,5 +1,4 @@
 import datetime
-import os
 import pickle
 from textwrap import TextWrapper
 
@@ -13,10 +12,8 @@ class Item():
         self.completed = False
         self.notes = list()
 
-
     def __str__(self):
         return self.name
-
 
     def format(self, id, width, verbose):
         if self.completed:
@@ -47,20 +44,16 @@ class ItemManager:
         self.file_path = file_path
         self.items = list()
 
-
     def __enter__(self):
         self.load()
         return self
 
-
     def __exit__(self, type, value, traceback):
         self.save()
-
 
     def save(self):
         with open(self.file_path, 'wb') as f:
             pickle.dump(self.items, f)
-
 
     def load(self):
         try:
@@ -69,11 +62,9 @@ class ItemManager:
         except:
             print('Unknown error. Please run \'todo -h\' for help')
 
-    
     def initialize(self):
         self.items = list()
         open(self.file_path, 'w').close()
-
 
     def complete(self, id):
         self.items[id].complete_date = datetime.date.today()

@@ -20,7 +20,6 @@ def add(args):
         mgr.items.append(item)
 
 
-
 def done(args):
     with(core.ItemManager(default_file)) as mgr:
         mgr.complete(args.id)
@@ -57,8 +56,7 @@ def main():
     parser_view.add_argument('-c', help=completed_help, action='store_true')
     parser_view.add_argument('-i', metavar='ID', type=int, help=id_help)
     parser_view.add_argument('-v', help=verbose_help, action='store_true')
-    parser_view.set_defaults(func = view)
-
+    parser_view.set_defaults(func=view)
 
     # Build out the add options
     name_help = 'The name of the new item'
@@ -69,15 +67,13 @@ def main():
     parser_add.add_argument('description', help=desc_help)
     parser_add.set_defaults(func=add)
 
-
     # Build out the done options
     id_help = 'The id of the item to mark as complete'
 
-    parser_done = subparsers.add_parser('done', 
+    parser_done = subparsers.add_parser('done',
                                         help='Marks an item as complete')
     parser_done.add_argument('id', type=int, help=id_help)
     parser_done.set_defaults(func=done)
-
 
     # Build out the note options
     id_help = 'The id of the item to add the note to'
@@ -88,12 +84,10 @@ def main():
     parser_note.add_argument('text', help=text_help)
     parser_note.set_defaults(func=note)
 
-
     # Build out the initialize options
     parser_init = subparsers.add_parser('init',
                                         help='Initializes a new ToDo list')
     parser_init.set_defaults(func=init)
-
 
     # Ensure that an argument was passed
     if len(sys.argv[1:]) == 0:
