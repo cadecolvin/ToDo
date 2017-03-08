@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 
 from todo import core
 
@@ -86,6 +87,11 @@ parser_note.set_defaults(func=note)
 parser_init = subparsers.add_parser('init', help='Initializes a new ToDo list')
 parser_init.set_defaults(func=init)
 
+
+# Ensure that an argument was passed
+if len(sys.argv[1:]) == 0:
+    parser.print_help()
+    parser.exit(1)
 
 args = parser.parse_args()
 args.func(args)
