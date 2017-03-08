@@ -7,7 +7,6 @@ from textwrap import TextWrapper
 class Item():
     '''Represents a ToDo item.'''
     def __init__(self, name, description):
-        print('making a new item')
         self.name = name
         self.description = description
         self.create_date = datetime.date.today()
