@@ -7,7 +7,7 @@ import sys
 from todo import core
 
 
-__version__ = '1.0'
+__version__ = '1.l'
 
 
 default_file = r'C:\Users\ccolvin\.todo'
