@@ -37,9 +37,13 @@ def init(args):
 
 def view(args):
     with(core.ItemManager(default_file)) as mgr:
-        for idx, item in enumerate(mgr.items):
-            if item.completed == args.c:
-                print(item.format(idx, term_width, args.v))
+        if args.i is not None:
+            item = mgr.items[args.i]
+            print(item.format(args.i, term_width, True))
+        else:
+            for idx, item in enumerate(mgr.items):
+                if item.completed == args.c:
+                    print(item.format(idx, term_width, args.v))
 
 
 def main():
