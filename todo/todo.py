@@ -7,9 +7,6 @@ import sys
 from todo import core
 
 
-__version__ = '1.l'
-
-
 default_file = r'C:\Users\ccolvin\.todo'
 term_width = os.get_terminal_size()[0]
 
