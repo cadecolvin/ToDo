@@ -3,12 +3,13 @@ import pickle
 from textwrap import TextWrapper
 
 
-class Item():
-    '''Represents a ToDo item.'''
+class Item:
+    """Represents a ToDo item."""
     def __init__(self, name, description):
         self.name = name
         self.description = description
         self.create_date = datetime.date.today()
+        self.complete_date = datetime.date.today()
         self.completed = False
         self.notes = list()
 
@@ -39,7 +40,7 @@ class Item():
 
 
 class ItemManager:
-    '''Saves and loads the items at the path specified'''
+    """Saves and loads the items at the path specified"""
     def __init__(self, file_path):
         self.file_path = file_path
         self.items = list()
