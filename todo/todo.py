@@ -14,7 +14,7 @@ term_width = os.get_terminal_size()[0]
 def add(args):
     item = core.Item(args.name, args.description)
     with(core.ItemManager(default_file)) as mgr:
-        mgr.items.append(item)
+        mgr.open_items.append(item)
 
 
 def done(args):
@@ -24,7 +24,7 @@ def done(args):
 
 def note(args):
     with(core.ItemManager(default_file)) as mgr:
-        mgr.items[args.id].notes.append(args.text)
+        mgr.open_items[args.id].notes.append(args.text)
 
 
 def init(args):
@@ -34,13 +34,17 @@ def init(args):
 
 def view(args):
     with(core.ItemManager(default_file)) as mgr:
+        if args.c:
+            active_list = mgr.completed_items
+        else:
+            active_list = mgr.open_items
+
         if args.i is not None:
-            item = mgr.items[args.i]
+            item = active_list[args.i]
             print(item.format(args.i, term_width, True))
         else:
-            for idx, item in enumerate(mgr.items):
-                if item.completed == args.c:
-                    print(item.format(idx, term_width, args.v))
+            for idx, item in enumerate(active_list):
+                print(item.format(idx, term_width, args.v))
 
 
 def main():
