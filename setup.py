@@ -6,7 +6,7 @@ setup(
     name='ToDo',
     packages=['todo'],
     entry_points={'console_scripts': ['todo = todo.todo:main']},
-    version='1.1',
+    version='1.2',
     description='A simple command line ToDo list',
     author='Cade Colvin',
     author_email='cade.colvin@gmail.com'

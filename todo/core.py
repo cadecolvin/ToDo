@@ -3,12 +3,13 @@ import pickle
 from textwrap import TextWrapper
 
 
-class Item():
-    '''Represents a ToDo item.'''
+class Item:
+    """Represents a ToDo item."""
     def __init__(self, name, description):
         self.name = name
         self.description = description
         self.create_date = datetime.date.today()
+        self.complete_date = datetime.date.today()
         self.completed = False
         self.notes = list()
 
@@ -39,7 +40,7 @@ class Item():
 
 
 class ItemManager:
-    '''Saves and loads the items at the path specified'''
+    """Saves and loads the items at the path specified"""
     def __init__(self, file_path):
         self.file_path = file_path
         self.items = list()
@@ -53,12 +54,15 @@ class ItemManager:
 
     def save(self):
         with open(self.file_path, 'wb') as f:
-            pickle.dump(self.items, f)
+            all_items = self.open_items + self.completed_items
+            pickle.dump(all_items, f)
 
     def load(self):
         try:
             with open(self.file_path, 'rb') as f:
                 self.items = pickle.load(f)
+                self.open_items = [item for item in self.items if item.completed == False]
+                self.completed_items = [item for item in self.items if item.completed == True]
         except:
             print('Unknown error. Please run \'todo -h\' for help')
 
@@ -67,5 +71,8 @@ class ItemManager:
         open(self.file_path, 'w').close()
 
     def complete(self, id):
-        self.items[id].complete_date = datetime.date.today()
-        self.items[id].completed = True
+        self.open_items[id].complete_date = datetime.date.today()
+        self.open_items[id].completed = True
+
+        self.completed_items.append(self.open_items[id])
+        del self.open_items[id]
