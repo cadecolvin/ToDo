@@ -4,7 +4,13 @@ from textwrap import TextWrapper
 
 
 class Item:
-    """Represents a ToDo item."""
+    """Represents a ToDo item.
+    
+    Args:
+        name (str): The name/title of the item
+        description (str): A longer description of the item
+
+    """
     def __init__(self, name, description):
         self.name = name
         self.description = description
@@ -17,6 +23,22 @@ class Item:
         return self.name
 
     def format(self, id, width, verbose):
+        """Formats the todo item to fit on the screen
+
+        Returns a string representation of the todo item that fits
+        within a terminal window of `width`.
+
+        Args:
+            id (int): The id of the todo item to format
+            width (int): The width of the screen to format for
+            verbose (bool): 
+                If True, include all `notes`
+                If False, only include title
+
+        Returns:
+            str: A string formatted according to `width` and `verbose`.
+
+        """
         if self.completed:
             title = f'{id}|{self.complete_date} -- {self.name}'
         else:
@@ -40,7 +62,12 @@ class Item:
 
 
 class ItemManager:
-    """Saves and loads the items at the path specified"""
+    """Saves and loads the items at the path specified
+    
+    Args:
+        file_path (str): The path to store/load todo items
+
+    """
     def __init__(self, file_path):
         self.file_path = file_path
         self.items = list()
