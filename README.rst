@@ -14,7 +14,7 @@ View
 
 Running ToDo with the **view** verb will list the open items::
 
-    todo view [-c] [-i ID] [-v]
+    $ todo view [-c] [-i ID] [-v]
 
 Passing the **-c** flag will return items marked as completed::
 
