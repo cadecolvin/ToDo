@@ -5,7 +5,7 @@ Once the item is marked as complete, the date it was completed will be saved as 
 
 Usage
 =====
-.. code-block:: shell
+::
     $ todo {view,add,done,note,init}
 
 View
