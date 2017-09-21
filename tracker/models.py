@@ -5,7 +5,8 @@ class Item(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=128)
     created_date = models.DateField(auto_now=False, auto_now_add=True)
-    completed_date = models.DateField(auto_now=False, auto_now_add=False)
+    completed_date = models.DateField(auto_now=False, auto_now_add=False, 
+                                      null=True, blank=True)
 
     def __str__(self):
         return self.title
