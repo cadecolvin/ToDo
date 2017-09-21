@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from .models import Item, Comment
@@ -17,6 +19,8 @@ def create_item(request):
             description = form.cleaned_data['description']
             item = Item(title=title, description=description)
             item.save()
+
+            return HttpResponseRedirect(reverse('index'))
     else:
         form = ItemForm()
 
