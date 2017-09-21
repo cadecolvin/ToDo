@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Item, Comment
 from .forms import ItemForm
@@ -25,3 +25,7 @@ def create_item(request):
         form = ItemForm()
 
     return render(request, 'tracker/newitem.html', {'form': form})
+
+def detail(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    return render(request, 'tracker/detail.html', {'item':item})
